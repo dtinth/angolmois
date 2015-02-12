@@ -1265,7 +1265,6 @@ static void play_show_stagefile(void)
 	char ibuf[256];
 
 	snprintf(ibuf, sizeof ibuf, "%s: %s - %s", VERSION, string[S_ARTIST], string[S_TITLE]);
-	SDL_SetWindowTitle(screen, ibuf);
 
 	sprintf(stagefile_meta, "Level %d | BPM %.2f%s | %d note%s [%dKEY%s]",
 		value[V_PLAYLEVEL], initbpm, hasbpmchange ? "?" : "", nnotes,

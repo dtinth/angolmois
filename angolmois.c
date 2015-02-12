@@ -1045,7 +1045,7 @@ static int bga[] = {[BGA_LAYER]=-1, [BGA2_LAYER]=-1, [BGA3_LAYER]=-1, [POORBGA_L
 static int bgamask = (1<<BGA_LAYER)|(1<<BGA2_LAYER)|(1<<BGA3_LAYER), poormask = (1<<POORBGA_LAYER);
 static int score = 0, scocnt[5], scombo = 0, smaxcombo = 0;
 static double gradefactor;
-static int gradetime = 0, grademode, gauge = 256, survival = 150;
+static int gradetime = 0, grademode, gradeoffset, gauge = 256, survival = 150;
 
 static SDL_Texture *sprite = NULL;
 static int keymap[SDL_NUM_SCANCODES]; /* -1: none, 0..NNOTECHANS-1: notes, +0..+1: speed down/up */
@@ -1575,6 +1575,7 @@ static int play_process(void)
 
 				if (l >= pcheck && !objs[l].nograding && objs[l].type != LNDONE) {
 					tmp = MEASURE_TO_MSEC(objs[l].time - line, bpm) * shorten(line) * gradefactor;
+					gradeoffset = tmp;
 					if (tmp < 0) tmp = -tmp;
 					if (tmp < 144) {
 						if (objs[l].type == LNSTART) pthru[key] = l + 1;
@@ -1660,6 +1661,13 @@ static int play_process(void)
 			if (scombo > 1) {
 				sprintf(buf, "%d COMBO", scombo);
 				printstr(tpanel1/2, 288 - delta, 1, 1, buf, 0x808080, 0xffffff);
+			}
+			if (grademode >= 1 && grademode < 4) {
+				if (gradeoffset > 0) {
+					printstr(tpanel1/2, 302 - delta, 1, 1, "(EARLY)", 0x606040, 0xe0e0c0);
+				} else {
+					printstr(tpanel1/2, 302 - delta, 1, 1, "(LATE)", 0x604060, 0xe0c0e0);
+				}
 			}
 			if (opt_mode) printstr(tpanel1/2, 302 - delta, 1, 1, "(AUTO)", 0x404040, 0xc0c0c0);
 		}

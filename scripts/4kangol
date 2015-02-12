@@ -1,0 +1,7 @@
+#!/bin/bash
+export ANGOLMOIS_1P_KEYS='||||||||'
+export ANGOLMOIS_11s_KEY='d'
+export ANGOLMOIS_13p_KEY='f'
+export ANGOLMOIS_15p_KEY='j'
+export ANGOLMOIS_19s_KEY='k'
+exec ./angolmois -K '11s 13p 15p 19s' '' "$@"

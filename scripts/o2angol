@@ -1,0 +1,4 @@
+#!/bin/bash
+export ANGOLMOIS_1P_KEYS='left ctrl|s|d|f|space|j|k|l|space'
+export ANGOLMOIS_14y_KEY='space'
+exec ./angolmois -K '11a 12b 13a 14y 15a 18b 19a' '' "$@"
